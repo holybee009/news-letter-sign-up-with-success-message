@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- displays site properly based on user's device -->
+
+    <link
+      rel="icon"
+      type="image/png"
+      sizes="32x32"
+      href="./assets/images/favicon-32x32.png"
+    />
+    <link rel="stylesheet" href="https://fonts.google.com/specimen/Roboto" />
+    <title>
+      Frontend Mentor | Newsletter sign-up form with success message
+    </title>
+
+    <!-- Feel free to remove these styles or customise in your own stylesheet 👍 -->
+    <style>
+      .attribution {
+        font-size: 11px;
+        text-align: center;
+      }
+      .attribution a {
+        color: hsl(0, 0%, 100%);
+        text-transform: capitalize;
+      }
+      body {
+        background-color: hsl(234, 29%, 20%);
+        font-family: Roboto;
+        font-weight: 400;
+      }
+      .sign-up-box {
+        background-color: hsl(0, 0%, 100%);
+        display: flex;
+        width: 40vw;
+        height: 60vh;
+        justify-content: center;
+        align-content: center;
+        margin: 20vh 30vw;
+        padding: 15px 30px;
+        border-radius: 20px;
+        gap: 2rem;
+      }
+      .container {
+        display: flex;
+        position: relative;
+        margin-bottom: 8px;
+        cursor: pointer;
+        -webkit-user-select: none;
+        -moz-user-select: none;
+        -ms-user-select: none;
+        user-select: none;
+        align-items: center;
+      }
+      .container input {
+        position: absolute;
+        opacity: 0;
+        cursor: pointer;
+        height: 0;
+        width: 0;
+      }
+      .checkmark {
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 15px;
+        width: 15px;
+        background-color: #eee;
+        border-radius: 50%;
+      }
+      .container:hover input ~ .checkmark {
+        background-color: #ccc;
+      }
+      .container input:checked ~ .checkmark {
+        background-color: hsl(4, 100%, 67%);
+      }
+      .checkmark:after {
+        content: "";
+        position: absolute;
+        display: none;
+      }
+      .container input:checked ~ .checkmark:after {
+        display: block;
+      }
+      .container .checkmark:after {
+        left: 5px;
+        top: 3px;
+        width: 2px;
+        height: 5px;
+        border: solid white;
+        border-width: 0 3px 3px 0;
+        -webkit-transform: rotate(45deg);
+        -ms-transform: rotate(45deg);
+        transform: rotate(45deg);
+      }
+      .container:last-of-type {
+        margin-bottom: 16px;
+      }
+      p {
+        font-size: 14px;
+      }
+      .text-part {
+        padding: 15px 0px 30px 20px;
+      }
+      .text-part .option {
+        margin: 0 0 0 1.3rem;
+        font-size: 14px;
+      }
+      form label {
+        font-size: 12px;
+      }
+      .email-input {
+        padding: 10px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin: 4px 0;
+        width: 15.5rem;
+      }
+      .labels {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 95%;
+        font-size: 12px;
+      }
+      .error {
+        color: hsl(4, 100%, 67%);
+        font-weight: 600;
+      }
+      #subscribe,
+      .dismiss {
+        background-color: hsl(4, 100%, 67%);
+        color: hsl(0, 0%, 100%);
+        border: none;
+        padding: 10px 25px;
+        text-align: center;
+        border-radius: 6px;
+        cursor: pointer;
+        width: 14.5rem;
+        margin-top: 4px;
+        box-shadow: 5px 7px 20px hsl(4, 100%, 67%);
+      }
+      #subscribe:visited,
+      #subscribe:active,
+      .dismiss:visited,
+      .dismiss:active {
+        background-color: hsl(234, 29%, 20%);
+        box-shadow: none;
+      }
+      .image img {
+        height: 100%;
+        border-radius: 0px;
+        justify-self: end;
+        align-self: center;
+      }
+      .sign-up-box .mobile-image {
+        display: none;
+      }
+      .input-error {
+        background-color: hsl(4, 46%, 93%);
+        border: 1px solid hsl(4, 100%, 67%);
+        padding: 10px 12px;
+        border-radius: 6px;
+        cursor: pointer;
+        margin: 4px 0;
+        width: 15.5rem;
+      }
+      .input-error::placeholder {
+        color: hsl(4, 100%, 67%);
+        font-weight: 600;
+      }
+      @media (max-width: 375px) {
+        * {
+          padding: 0;
+          margin: 0;
+        }
+        .sign-up-box .mobile-image {
+          display: block;
+          width: 100%;
+        }
+        .image img {
+          display: none;
+        }
+        .sign-up-box {
+          width: 100vw;
+          height: 100vh;
+          padding: 0;
+          margin: 0;
+          border-radius: 0;
+          place-content: center;
+          display: block;
+        }
+        .text-part {
+          margin: 0 12px;
+          width: 80vw;
+        }
+        .text-part h1 {
+          padding: 15px 0;
+        }
+        .text-part p,
+        .text-part .container {
+          margin-bottom: 12px;
+        }
+      }
+      /* success message part */
+      .success-box {
+        background-color: hsl(0, 0%, 100%);
+        margin: 20vh 40%;
+        padding: 25px 30px;
+        border-radius: 20px;
+        width: 20vw;
+        display: none;
+      }
+      .success-box img {
+        width: 48px;
+        height: 48px;
+      }
+      .success-box p span {
+        font-weight: bold;
+      }
+      @media (max-width: 375px) {
+        .success-box {
+          width: 100vw;
+          height: 100vh;
+          padding: 12px;
+          margin: 0;
+          border-radius: 0;
+          place-content: center;
+        }
+        .success-box img {
+          margin-top: 30%;
+        }
+        .success-box h1 {
+          margin: 25px 0;
+          width: 60%;
+        }
+        .success-box p {
+          margin-bottom: 55%;
+          width: 90%;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="sign-up-box">
+      <img
+        src="assets/images/illustration-sign-up-mobile.svg"
+        class="mobile-image"
+      />
+      <div class="text-part">
+        <h1>Stay updated!</h1>
+        <p>Join 60,000+ product managers receiving monthly updates on:</p>
+        <label class="container" checked="checked"
+          ><span class="option"
+            >Product discovery and building what matters</span
+          >
+          <input type="checkbox" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="container"
+          ><span class="option">Measuring to ensure updates are a success</span>
+          <input type="checkbox" />
+          <span class="checkmark"></span>
+        </label>
+        <label class="container"
+          ><span class="option">And much more!</span>
+          <input type="checkbox" />
+          <span class="checkmark"></span>
+        </label>
+        <form>
+          <div class="labels">
+            <label for="Email"> Email address</label>
+            <div class="error"></div>
+          </div>
+          <input
+            type="text"
+            placeholder="email@company.com"
+            class="email-input"
+          />
+          <div id="subscribe">Subscribe to monthly newsletter</div>
+        </form>
+      </div>
+      <div class="image">
+        <img src="assets/images/illustration-sign-up-desktop.svg" alt="image" />
+      </div>
+    </div>
+
+    <!-- Success message start -->
+    <div class="success-box">
+      <img src="assets/images/icon-success.svg" alt="success" />
+      <h1>Thanks for subscribing!</h1>
+      <p>
+        A confirmation email has been sent to <span>ash@loremcompany.com</span>.
+        Please open it and click the button inside to confirm your subscription.
+      </p>
+      <div class="dismiss">Dismiss message</div>
+    </div>
+
+    <!-- Success message end -->
+
+    <div class="attribution">
+      Challenge by
+      <a href="https://www.frontendmentor.io?ref=challenge" target="_blank"
+        >Frontend Mentor</a
+      >. Coded by <a href="#">oshodi abdulmumin</a>.
+    </div>
+  </body>
+  <script>
+    const subscribe = document.querySelector("#subscribe");
+    const success = document.querySelector(".success-box");
+    const signUp = document.querySelector(".sign-up-box");
+    const dismiss = document.querySelector(".dismiss");
+    const email = document.querySelector(".email-input");
+    const error = document.querySelector("form .error");
+
+    dismiss.addEventListener("click", () => {
+      if (success.style.display === "none") {
+        signUp.style.display = "none";
+        success.style.display = "block";
+      } else {
+        signUp.style.display = window.innerWidth >= 376 ? "flex" : "block";
+        success.style.display = "none";
+      }
+    });
+
+    email.addEventListener("change", (e) => {
+      const value = e.target.value;
+      // console.log(value);
+      if (value.slice(-4) !== ".com") {
+        email.classList.toggle("input-error");
+        error.innerHTML = "valid email required";
+        subscribe.addEventListener("click", () => {
+          if (success.style.display === "none") {
+            signUp.style.display = "none";
+            success.style.display = "block";
+          }
+        });
+      } else {
+        success.style.display = "none";
+      }
+    });
+  </script>
+</html>
