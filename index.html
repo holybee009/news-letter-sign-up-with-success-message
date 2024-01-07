@@ -332,13 +332,13 @@
         email.classList.toggle("input-error");
         error.innerHTML = "valid email required";
         subscribe.addEventListener("click", () => {
-          if (success.style.display === "none") {
-            signUp.style.display = "none";
-            success.style.display = "block";
-          }
+          success.style.display = "none";
         });
-      } else {
-        success.style.display = "none";
+      } else if (value.slice(-4) === ".com") {
+        subscribe.addEventListener("click", () => {
+          signUp.style.display = "none";
+          success.style.display = "block";
+        });
       }
     });
   </script>
